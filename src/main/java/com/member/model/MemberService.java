@@ -7,7 +7,7 @@ public class MemberService {
 		dao = new MemberDAO();
 	}
 	
-	public MemberVO one(String member_account,String member_password) {
+	public MemberVO one(String member_account) {
 		return dao.getone(member_account);
 	}
 }

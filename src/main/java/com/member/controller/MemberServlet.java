@@ -1,9 +1,7 @@
 package com.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +9,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.member.model.*;
 
@@ -30,18 +29,23 @@ public class MemberServlet extends HttpServlet {
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			HttpSession session = req.getSession();
 			
 			try {
+				
 				String member_account = req.getParameter("member_account");
 				if (member_account == null || (member_account.trim()).length() == 0) {
-					System.out.println("½Ğ¿é¤J±b¸¹");
-					errorMsgs.add("½Ğ¿é¤J±b¸¹");
+					
+					errorMsgs.add("è«‹è¼¸å…¥å¸³è™Ÿ");
 				}
+				System.out.println(member_account);
+				
 				String member_password = req.getParameter("member_password");
 				if (member_password == null || (member_password.trim()).length() == 0) {
-					System.out.println("½Ğ¿é¤J±K½X");
-					errorMsgs.add("½Ğ¿é¤J±K½X");
+					
+					errorMsgs.add("è«‹è¼¸å…¥å¯†ç¢¼");
 				}
+				System.out.println(member_password);
 				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
@@ -51,13 +55,13 @@ public class MemberServlet extends HttpServlet {
 				}
 				
 				MemberService memberSvc = new MemberService();
-				MemberVO memberVO = memberSvc.one(member_account, member_password);
+				MemberVO memberVO = memberSvc.one(member_account);
 				if(memberVO == null) {
-					System.out.println("±b¸¹¿ù»~");
-					errorMsgs.add("±b¸¹¿ù»~");
-				}else if(memberVO.getMember_password().equals(member_password)) {
-					System.out.println("±K½X¿ù»~");
-					errorMsgs.add("±K½X¿ù»~");
+					System.out.println("å¸³è™ŸéŒ¯èª¤");
+					errorMsgs.add("å¸³è™ŸéŒ¯èª¤");
+				}else if(!memberVO.getMember_password().equals(member_password)) {
+					System.out.println("å¯†ç¢¼éŒ¯èª¤");
+					errorMsgs.add("å¯†ç¢¼éŒ¯èª¤");
 				}
 				
 				if (!errorMsgs.isEmpty()) {
@@ -67,13 +71,13 @@ public class MemberServlet extends HttpServlet {
 					return;
 				}
 				
-				req.setAttribute("memberVO", memberVO);
+				session.setAttribute("memberVO", memberVO);
 				String url = "/member/listOne.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 
 			} catch (Exception e) {
-				errorMsgs.add("µLªk¨ú±o¸ê®Æ:" + e.getMessage());
+				errorMsgs.add("ç„¡æ³•å–çš„è³‡æ–™" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/member/index.jsp");
 				failureView.forward(req, res);
 			}

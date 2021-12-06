@@ -1,20 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="com.member.model.*"%>
 <%
-  MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+  MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <table>
 	<tr>
-		<th>·|­û¼ÊºÙ</th>
-		<th>³Ð«Ø®É¶¡</th>
+		<th>æœƒå“¡æš±ç¨±</th>
+		<th>å‰µå»ºæ™‚é–“</th>
 	</tr>
 	<tr>
 		<td><%=memberVO.getMember_nick()%></td>

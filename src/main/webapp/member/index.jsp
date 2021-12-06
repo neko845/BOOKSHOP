@@ -1,15 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ð­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -19,12 +19,12 @@
 <ul>
 <li>
     <FORM METHOD="post" ACTION="member.do" >
-        <b>¿é¤J±b¸¹</b>
+        <b>è¼¸å…¥å¸³è™Ÿ</b>
         <input type="text" name="member_account">
-        <b>¿é¤J±K½X</b>
+        <b>è¼¸å…¥å¯†ç¢¼</b>
         <input type="text" name="member_password">
         <input type="hidden" name="action" value="getOne">
-        <input type="submit" value="°e¥X">
+        <input type="submit" value="é€å‡º">
     </FORM>
   </li>
 </ul>
