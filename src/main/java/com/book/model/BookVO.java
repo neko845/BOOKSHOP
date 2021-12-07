@@ -3,6 +3,7 @@ package com.book.model;
 import java.sql.Date;
 
 public class BookVO {
+	
 	private Integer bookId;
 	private String bookName;
 	private String bookContent;
@@ -10,6 +11,7 @@ public class BookVO {
 	private byte[] bookImg;
 	private Date addedTime;
 	private Date downTime;
+	
 	public Integer getBookId() {
 		return bookId;
 	}

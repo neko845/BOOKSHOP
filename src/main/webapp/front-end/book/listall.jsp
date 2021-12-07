@@ -21,6 +21,9 @@ img{
 </style>
 </head>
 <body>
+<ul>
+  <li><a href="<%=request.getContextPath()%>/front-end/book/buycar.jsp">購物車</a> <br><br></li>
+</ul>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -51,18 +54,6 @@ img{
 			</td>
 			<td>${bookVO.addedTime}</td>
 			<td>${bookVO.downTime}</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/book/book.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="bookId"  value="${bookVO.bookId}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/book/book.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="bookId"  value="${bookVO.bookId}">
-			     <input type="hidden" name="action" value="delete"></FORM>
-			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/book/book.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="加入購物車">

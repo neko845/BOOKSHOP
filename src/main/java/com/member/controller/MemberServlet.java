@@ -49,7 +49,7 @@ public class MemberServlet extends HttpServlet {
 				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/member/index.jsp");
+							.getRequestDispatcher("/front-end/member/index.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -66,19 +66,19 @@ public class MemberServlet extends HttpServlet {
 				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/member/index.jsp");
+							.getRequestDispatcher("/front-end/member/index.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				
 				session.setAttribute("memberVO", memberVO);
-				String url = "/member/listOne.jsp";
+				String url = "/front-end/member/listOne.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 
 			} catch (Exception e) {
 				errorMsgs.add("無法取的資料" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/index.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/member/index.jsp");
 				failureView.forward(req, res);
 			}
 		}

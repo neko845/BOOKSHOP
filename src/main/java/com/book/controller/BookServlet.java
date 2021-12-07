@@ -47,13 +47,13 @@ public class BookServlet extends HttpServlet{
 				System.out.println("查詢資料");
 				
 				req.setAttribute("bookVO", bookVO);
-				String url = "/book/update.jsp";
+				String url = "/back-end/book/update.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
 			} catch (Exception e) {
 				errorMsgs.add("無法取的資料" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/book/listall.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/book/listall.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -124,7 +124,7 @@ public class BookServlet extends HttpServlet{
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("bookVO", bookVO);
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/book/update.jsp");
+							.getRequestDispatcher("/back-end/book/update.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -133,13 +133,13 @@ public class BookServlet extends HttpServlet{
 				bookVO = bookSvc.update(bookName, bookContent, bookQty, bookImg, addedTime, downTime, bookId);
 				
 				req.setAttribute("bookVO", bookVO);
-				String url = "/book/listall.jsp";
+				String url = "/back-end/book/listall.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 				
 			} catch (Exception e) {
 				errorMsgs.add("無法取的資料" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/book/listall.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/book/listall.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -205,7 +205,7 @@ public class BookServlet extends HttpServlet{
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("bookVO", bookVO); 
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/book/addBook.jsp");
+							.getRequestDispatcher("/back-end/book/addBook.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -213,13 +213,13 @@ public class BookServlet extends HttpServlet{
 				BookService bookSvc = new BookService();
 				bookVO = bookSvc.add(bookName, bookContent, bookQty, bookImg, addedTime, downTime);
 				
-				String url = "/book/listall.jsp";
+				String url = "/back-end/book/listall.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				
 			} catch (Exception e) {
 				errorMsgs.add("無法取的資料" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/book/listall.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/book/listall.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -237,7 +237,7 @@ public class BookServlet extends HttpServlet{
 				bookSvc.delete(bookId);
 				System.out.println("刪除成功");
 
-				String url = "/book/listall.jsp";
+				String url = "/back-end/book/listall.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 				System.out.println("刪除完成");
@@ -245,7 +245,7 @@ public class BookServlet extends HttpServlet{
 			} catch (Exception e) {
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/book/listall.jsp");
+						.getRequestDispatcher("/back-end/book/listall.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -258,13 +258,16 @@ public class BookServlet extends HttpServlet{
 			List<BookVO> list = (List)session.getAttribute("buycar");
 			try {
 
-				Integer bookId = new Integer(req.getParameter("bookId"));
+				Integer bookId = Integer.valueOf(req.getParameter("bookId"));
 				System.out.println(bookId);
 
 				BookService bookSvc = new BookService();
+				
 				BookVO bookVO = bookSvc.getOne(bookId);
-				
-				
+				// TODO if VO is null;
+				if(bookVO == null) {
+					errorMsgs.add("查無資料");
+				}
 				if(list == null) {
 					list = new ArrayList<BookVO>();
 					list.add(bookVO);
@@ -278,22 +281,56 @@ public class BookServlet extends HttpServlet{
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("bookVO", bookVO); 
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/book/listall.jsp");
+							.getRequestDispatcher("/front-end/book/listall.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				
-				String url = "/book/listall.jsp";
+				String url = "/front-end/book/listall.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
 			} catch (Exception e) {
 				errorMsgs.add("無法取的資料" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/book/listall.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/book/listall.jsp");
 				failureView.forward(req, res);
 			}
 		}
 		
+		if ("deletecar".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			HttpSession session = req.getSession();
+			List<BookVO> list = (List)session.getAttribute("buycar");
+			try {
+
+				Integer bookId = Integer.valueOf(req.getParameter("bookId"));
+				System.out.println(bookId);
+
+				BookService bookSvc = new BookService();
+				
+				BookVO bookVO = bookSvc.getOne(bookId);
+				// TODO if VO is null;
+				if(bookVO == null) {
+					errorMsgs.add("查無資料");
+				}
+				if(list.contains(bookVO)){
+					list.remove(list.indexOf(bookVO));
+				}else {
+					errorMsgs.add("商品已移除");
+				}
+				
+				String url = "/front-end/book/buycar.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+
+			} catch (Exception e) {
+				errorMsgs.add("無法取的資料" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/book/buycar.jsp");
+				failureView.forward(req, res);
+			}
+		}
 
 	}
 }
