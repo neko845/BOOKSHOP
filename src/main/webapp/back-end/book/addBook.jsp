@@ -11,6 +11,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$(".write").focus(function(){
+		$(this).css("background-color","yellow");
+	});
+	$(".write").blur(function(){
+		$(this).css("background-color","#ffffff");
+	});
+});
+</script>
 </head>
 <body>
 	<c:if test="${not empty errorMsgs}">
@@ -27,32 +38,32 @@
 		<table>
 			<tr>
 				<td>商品名稱:</td>
-				<td><input type="TEXT" name="bookName"
+				<td><input type="TEXT" name="bookName" class="write"
 					value="<%=(bookVO == null) ? "商品名稱" : bookVO.getBookName()%>" /></td>
 			</tr>
 			<tr>
 				<td>活動簡介:</td>
-				<td><textarea class="form-control" name="bookContent" rows="14"><%=(bookVO == null) ? "商品介紹" : bookVO.getBookContent()%></textarea></td>
+				<td><textarea class="write" name="bookContent"  rows="14"><%=(bookVO == null) ? "商品介紹" : bookVO.getBookContent()%></textarea></td>
 
 			</tr>
 			<tr>
 				<td>商品數量:</td>
-				<td><input type="TEXT" name="bookQty"
+				<td><input type="TEXT" name="bookQty" class="write"
 					value="<%=(bookVO == null) ? "1" : bookVO.getBookQty()%>" /></td>
 			</tr>
 			<tr>
 				<td>活動圖片:</td>
-				<td><input type="file" name="bookImg"
+				<td><input type="file" name="bookImg" class="write"
 					value="<%=(bookVO == null) ? "" : bookVO.getBookImg()%>" /></td>
 			</tr>
 			<tr>
 				<td>上架時間:</td>
-				<td><input type="date" name="addedTime"
+				<td><input type="date" name="addedTime" class="write"
 					value="<%=(bookVO == null) ? "" : bookVO.getAddedTime()%>" /></td>
 			</tr>
 			<tr>
 				<td>下架時間:</td>
-				<td><input type="date" name="downTime"
+				<td><input type="date" name="downTime" class="write"
 					value="<%=(bookVO == null) ? "" : bookVO.getDownTime()%>" /></td>
 			</tr>
 			

@@ -13,6 +13,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$("#url").mouseenter(function(){
+		$(this).css("color","red");
+	});
+	$("#url").mouseleave(function(){
+		$(this).css("color","black");
+	});
+});
+</script>
 <style type="text/css">
 img{
   width:100px;
@@ -21,7 +32,7 @@ img{
 </head>
 <body>
 <ul>
-  <li><a href="<%=request.getContextPath()%>/front-end/book/listall.jsp">首頁</a><br><br></li>
+  <li><a href="<%=request.getContextPath()%>/front-end/book/listall.jsp" id="url">首頁</a><br><br></li>
 </ul>
 <table>
 	<tr>

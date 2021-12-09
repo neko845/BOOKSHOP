@@ -6,8 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$(".write").focus(function(){
+		$(this).css("background-color","yellow");
+	});
+	$(".write").blur(function(){
+		$(this).css("background-color","#ffffff");
+	});
+});
+</script>
+<style>
+.content{
+	margin:auto;
+	width:500px;
+	height:500px;
+}
+
+</style>
 </head>
 <body>
+<div class="content">
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -16,17 +36,17 @@
 		</c:forEach>
 	</ul>
 </c:if>
-<ul>
-<li>
-    <FORM METHOD="post" ACTION="member.do" >
-        <b>輸入帳號</b>
-        <input type="text" name="member_account">
-        <b>輸入密碼</b>
-        <input type="text" name="member_password">
+
+
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do" >
+        <b>輸入帳號 : </b>
+        <input type="text" name="member_account" class="write"><br>
+        <b>輸入密碼 : </b>
+        <input type="text" name="member_password" class="write"><br>
         <input type="hidden" name="action" value="getOne">
         <input type="submit" value="送出">
     </FORM>
-  </li>
-</ul>
+    
+</div>
 </body>
 </html>

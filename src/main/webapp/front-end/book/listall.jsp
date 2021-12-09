@@ -14,16 +14,49 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$("#url").mouseenter(function(){
+		$(this).css("color","red");
+	});
+	$("#url").mouseleave(function(){
+		$(this).css("color","black");
+	});
+});
+</script>
 <style type="text/css">
+body{
+}
 img{
   width:100px;
   height:100px;
+  }
+.header{
+	border:#EA7500 3px;
+	width:90%;
+	height:100px;
+	margin:50px auto 10px;
+}
+.content{
+	background-color:#FFFFFF;
+	width:90%;
+	height:100%;
+	margin:0px auto;
+}
+#buycarurl{
+	width:90px;
+	height:90px;
+}
 </style>
 </head>
 <body>
-<ul>
-  <li><a href="<%=request.getContextPath()%>/front-end/book/buycar.jsp">購物車</a> <br><br></li>
-</ul>
+<div class="header">
+	<div id="buycarurl">
+		<a href="<%=request.getContextPath()%>/front-end/book/buycar.jsp" id="url" >購物車</a>
+	</div>
+</div>
+<div class="content">
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -55,7 +88,7 @@ img{
 			<td>${bookVO.addedTime}</td>
 			<td>${bookVO.downTime}</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/book/book.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/book/book.do" style="margin-bottom: 0px;" id="butt">
 			     <input type="submit" value="加入購物車">
 			     <input type="hidden" name="bookId"  value="${bookVO.bookId}">
 			     <input type="hidden" name="action" value="buycar"></FORM>
@@ -63,5 +96,6 @@ img{
 		</tr>
 	</c:forEach>
 </table>
+</div>
 </body>
 </html>
