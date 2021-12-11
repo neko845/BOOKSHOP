@@ -14,6 +14,7 @@ public class MemberDAO implements MemberDAO_interface{
 	private static final String update = "update member set member_account = ?, member_password = ?, member_nick = ?,creat_time = ?, member_state = ? where member_id = ?";
 	private static final String delete = "delete from member where member_id = ?";
 	private static final String get_one = "SELECT * FROM member where member_account = ?";
+	private static final String get_oneId = "SELECT * FROM member where member_id = ?";
 	private static final String get_all = "SELECT * FROM member";
 	
 	static {
@@ -226,5 +227,6 @@ public class MemberDAO implements MemberDAO_interface{
 		}
 		return memberVO;
 	}
+
 
 }

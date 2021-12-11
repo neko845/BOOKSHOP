@@ -25,6 +25,33 @@
 		<servlet-name>MemberServlet</servlet-name>
 		<url-pattern>/member/member.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdministratorServlet</servlet-name>
+		<servlet-class>com.administrator.controller.AdministratorServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdministratorServlet</servlet-name>
+		<url-pattern>/administrator/administrator.do</url-pattern>
+	</servlet-mapping>
+	
+	<filter>
+		<filter-name>AdministratorFilter</filter-name>
+		<filter-class>com.Filter.AdministratorFilter</filter-class>
+		<!-- <init-param> -->
+		<!-- <param-name>encoding</param-name> -->
+		<!-- <param-value>UTF-8</param-value> -->
+		<!-- </init-param> -->
+	</filter>
+	<filter-mapping>
+		<filter-name>AdministratorFilter</filter-name>
+		<url-pattern>/back-end/administrator/listall.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<!-- <dispatcher>FORWARD</dispatcher> -->
+		<!-- <dispatcher>INCLUDE</dispatcher> -->
+		<!-- <dispatcher>ERROR</dispatcher> -->
+		<!-- <dispatcher>ASYNC</dispatcher> -->
+	</filter-mapping>
 
 	<servlet>
 		<servlet-name>BookServlet</servlet-name>
@@ -53,7 +80,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>MemberFilter</filter-name>
-		<url-pattern>/member/listOne.jsp</url-pattern>
+		<url-pattern>/front-end/member/listOne.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<!-- <dispatcher>FORWARD</dispatcher> -->
 		<!-- <dispatcher>INCLUDE</dispatcher> -->

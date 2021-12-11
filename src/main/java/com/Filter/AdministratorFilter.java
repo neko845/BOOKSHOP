@@ -7,9 +7,9 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.member.model.MemberVO;
+import com.administrator.model.*;
 
-public class MemberFilter implements Filter {
+public class AdministratorFilter implements Filter {
 
 	
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -26,11 +26,11 @@ public class MemberFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpSession session = req.getSession();
 		
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-		System.out.println(memberVO);
-		if (null == memberVO) {
+		AdministratorVO administratorVO = (AdministratorVO) session.getAttribute("administratorVO");
+		System.out.println(administratorVO);
+		if (administratorVO.getAdministrator_authority()!=0) {
 
-			request.getRequestDispatcher("/front-end/member/index.jsp").forward(request, response);
+			request.getRequestDispatcher("/back-end/administrator/listone.jsp").forward(request, response);
 		}else {
 			chain.doFilter(request, response);
 		}
