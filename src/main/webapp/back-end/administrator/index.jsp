@@ -6,19 +6,39 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="reset.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
-	$(".write").focus(function(){
-		$(this).css("background-color","yellow");
+	$(document).ready(function() {
+		$(".write").focus(function() {
+			$(this).css("background-color", "yellow");
+		});
+		$(".write").blur(function() {
+			$(this).css("background-color", "#ffffff");
+		});
 	});
-	$(".write").blur(function(){
-		$(this).css("background-color","#ffffff");
-	});
-});
 </script>
+<style>
+.content {
+	margin: 10px auto;
+	padding:100px auto;
+	width: 1200px;
+	height: 600px;
+/* 	border:1px black solid; */
+	text-align: center;
+	font-size: 20px;
+}
+#login{
+width:600px;
+text-align: center;
+margin: 200px auto;
+}
+</style>
 </head>
 <body>
+<div class="content">
+<div id="login">
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -37,5 +57,7 @@ $(document).ready(function(){
         <input type="hidden" name="action" value="login">
         <input type="submit" value="送出">
     </FORM>
+    </div>
+    </div>
 </body>
 </html>
