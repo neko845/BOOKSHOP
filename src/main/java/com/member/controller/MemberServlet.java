@@ -265,6 +265,13 @@ public class MemberServlet extends HttpServlet {
 			}
 		}
 		
+		if ("add".equals(action)) { 
+
+				String url = "/front-end/member/addmember.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+		}
+		
 		
 	}
 }
