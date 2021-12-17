@@ -1,20 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.book.model.*"%>
 <%
 	BookService bookSvc = new BookService();
-    List<BookVO> list = bookSvc.getAll();
-    pageContext.setAttribute("list",list);
+	List<BookVO> list = bookSvc.getAll();
+	pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="reset.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+	integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+	integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+	crossorigin="anonymous"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -28,143 +47,121 @@
 	});
 </script>
 <style>
-.container {
+#header {
+	margin: 20px auto;
+}
+
+.content {
 	width: 1200px;
-	height: 90px;
-	margin: 0 auto;
-	border: 2px solid black;
-	box-sizing: border-box;
+	margin: 90px auto;
 }
 
-p {
-	font-size: 40px;
-	width: 300px;
-	height: auto;
-	float: left;
-	margin: 0;
-	padding: 20px 45px;
-	box-sizing: border-box;
-}
-
-nav {
-	float: right;
-	padding: 24px 60px;
-}
 img {
 	width: 100px;
 	height: 100px;
-}
-nav a {
-	padding: 0 10px;
-	font-size: 20px;
-}
-
-.content {
-	margin: 10px auto;
-	width: 1200px;
-	height: 600px;
-	border:1px black solid;  
-	text-align: center;
-	font-size: 20px;
-}
-.content {
-	margin: 20px auto;
-	width: 900px;
-	box-sizing: border-box;
-}
-
-td {
-	width: 1200px;
-}
-
-table {
-	margin: 1px;
-}
-.wrap {
-            width: 1200px;
-            margin: auto;
-            display: flex;
-        }
-.left{
-width:300px;
-border: 1px black solid;
-margin:20px auto;
-padding:20px auto;
-box-sizing: border-box;
-}
-.add{
-width:200px;
-margin:300px 100px;
 }
 </style>
 
 </head>
 <body>
-<div id="header">
+	<div id="header">
 		<div class="container">
-			<p>後臺管理</p>
-			<nav>
-				<a href="<%=request.getContextPath()%>/back-end/book/listall.jsp"
-					class="url">商品管理</a> <a
-					href="<%=request.getContextPath()%>/back-end/administrator/listone.jsp"
-					class="url">管理員資料</a> <a
-					href="<%=request.getContextPath()%>/back-end/administrator/listall.jsp"
-					class="url">管理員帳號管理</a>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<a class="navbar-brand"
+					href="<%=request.getContextPath()%>/back-end/administrator/listone.jsp">後臺管理</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavDropdown">
+					<ul class="navbar-nav">
+						<li class="nav-item active"><a class="nav-link"
+							href="<%=request.getContextPath()%>/back-end/member/listall.jsp">會員管理
+								<span class="sr-only">(current)</span>
+						</a></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">商品管理</a>
+							<div class="dropdown-menu"
+								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/back-end/book/addBook.jsp">新增商品</a>
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/back-end/book/listall.jsp">查看商品</a>
+							</div></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">管理員管理</a>
+							<div class="dropdown-menu"
+								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/back-end/administrator/addadministrator.jsp">新增管理員</a>
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/back-end/administrator/listall.jsp">查看管理員</a>
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/back-end/administrator/listone.jsp">管理員資料</a>
+							</div></li>
+					</ul>
+				</div>
 			</nav>
 		</div>
 	</div>
-	<div class="wrap">
-	<div class="left">
-	<a href="<%=request.getContextPath()%>/back-end/book/addBook.jsp"
-					class="add">新增商品</a>
-	</div>
 	<div class="content">
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-<table>
-	<tr>
-		<th>商品編號</th>
-		<th>商品名稱</th>
-		<th>商品介紹</th>
-		<th>商品數量</th>
-		<th>商品圖片</th>
-		<th>上架時間</th>
-		<th>下架時間</th>
-	</tr>
-	<c:forEach var="bookVO" items="${list}" varStatus="list">
-		
-		<tr>
-			<td>${bookVO.bookId}</td>
-			<td>${bookVO.bookName}</td>
-			<td>${bookVO.bookContent}</td>
-			<td>${bookVO.bookQty}</td>
-			<td>
-				<img alt="" src="<%=request.getContextPath()%>/book/getpic.do?picno=${bookVO.bookId}">
-			</td>
-			<td>${bookVO.addedTime}</td>
-			<td>${bookVO.downTime}</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/book/book.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="bookId"  value="${bookVO.bookId}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/book/book.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="bookId"  value="${bookVO.bookId}">
-			     <input type="hidden" name="action" value="delete"></FORM>
-			</td>
-		</tr>
-	</c:forEach>
-</table>
-</div>
-</div>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color: red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">商品編號</th>
+					<th scope="col">商品名稱</th>
+					<th scope="col">商品介紹</th>
+					<th scope="col">商品數量</th>
+					<th scope="col">商品圖片</th>
+					<th scope="col">上架時間</th>
+					<th scope="col">下架時間</th>
+					<th scope="col">修改</th>
+					<th scope="col">刪除</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="bookVO" items="${list}" varStatus="list">
+					<tr>
+						<td>${bookVO.bookId}</td>
+						<td>${bookVO.bookName}</td>
+						<td>${bookVO.bookContent}</td>
+						<td>${bookVO.bookQty}</td>
+						<td><img alt=""
+							src="<%=request.getContextPath()%>/book/getpic.do?picno=${bookVO.bookId}"></td>
+						<td>${bookVO.addedTime}</td>
+						<td>${bookVO.downTime}</td>
+						<td><FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/book/book.do"
+								style="margin-bottom: 0px;">
+								<input type="submit" value="修改"> <input type="hidden"
+									name="bookId" value="${bookVO.bookId}"> <input
+									type="hidden" name="action" value="getOne_For_Update">
+							</FORM></td>
+						<td><FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/book/book.do"
+								style="margin-bottom: 0px;">
+								<input type="submit" value="刪除"> <input type="hidden"
+									name="bookId" value="${bookVO.bookId}"> <input
+									type="hidden" name="action" value="delete">
+							</FORM></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+
 </body>
 </html>

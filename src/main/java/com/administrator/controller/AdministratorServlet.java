@@ -142,7 +142,7 @@ public class AdministratorServlet extends HttpServlet{
 
 			} catch (Exception e) {
 				errorMsgs.add("無法取的資料" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/administrator/listOne.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/administrator/update.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -198,7 +198,7 @@ public class AdministratorServlet extends HttpServlet{
 				
 			} catch (Exception e) {
 				errorMsgs.add("無法取的資料" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/administrator/listall.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/administrator/addadministrator.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -297,7 +297,7 @@ public class AdministratorServlet extends HttpServlet{
 
 			} catch (Exception e) {
 				errorMsgs.add("無法取的資料" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/administrator/listall.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/administrator/updateclass.jsp");
 				failureView.forward(req, res);
 			}
 		}

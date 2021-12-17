@@ -11,42 +11,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="reset.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
 <style>
-.container {
-	width: 1200px;
-	height: 90px;
-	margin: 0 auto;
-	border: 2px solid black;
-	box-sizing: border-box;
-}
+#header{
+margin: 20px auto;
 
-p {
-	font-size: 40px;
-	width: 200px;
-	height: auto;
-	float: left;
-	margin: 0;
-	padding: 20px 45px;
-	box-sizing: border-box;
-}
-
-nav {
-	float: right;
-	padding: 24px 60px;
-}
-
-nav a {
-	padding: 0 10px;
-	font-size: 20px;
 }
 .content{
-width: 1200px;
+width: 600px;
 margin: 20px auto;
 padding: 20px 60px;
-border: 2px solid black;
-font-size: 20px;
+font-size: 15px;
 box-sizing: border-box;
+}
+.form-group{
+width: 600px;
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -69,21 +52,40 @@ $(document).ready(function(){
 </head>
 <body>
 <div id="header">
-		<div class="container">
-			<p>bookshop</p>
-			<nav>
-				<a href="<%=request.getContextPath()%>/front-end/book/listall.jsp"
-					class="url">商品</a> <a
-					href="<%=request.getContextPath()%>/front-end/member/listOne.jsp"
-					class="url">我的會員</a><a
-					href="<%=request.getContextPath()%>/front-end/member/addmember.jsp"
-					class="url">新增會員</a> <a
-					href="<%=request.getContextPath()%>/front-end/book/buycar.jsp"
-					class="url">購物車</a>
+<div class="container">
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<a class="navbar-brand"
+					href="<%=request.getContextPath()%>/front-end/book/listall.jsp">bookshop</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavDropdown">
+					<ul class="navbar-nav">
+						<li class="nav-item active"><a class="nav-link"
+							href="<%=request.getContextPath()%>/front-end/book/buycar.jsp">購物車
+								<span class="sr-only">(current)</span>
+						</a></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false"> 會員 </a>
+							<div class="dropdown-menu"
+								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/front-end/member/addmember.jsp">新增會員</a>
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/front-end/member/listOne.jsp">我的會員</a>
+							</div></li>
+					</ul>
+				</div>
 			</nav>
 		</div>
 	</div>
 	<div class="content">
+	
+<form method="post" action="<%=request.getContextPath()%>/member/member.do" name="form1" enctype="multipart/form-data">
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
 		<ul>
@@ -92,31 +94,23 @@ $(document).ready(function(){
 			</c:forEach>
 		</ul>
 	</c:if>
-	<form method="post" action="<%=request.getContextPath()%>/member/member.do" name="form1" enctype="multipart/form-data">
-		<table>
-			<tr>
-				<td>會員帳號</td>
-				<td>
-					<input type="text" name="member_account" class="write" value="<%=(memberVO == null) ? "" : memberVO.getMember_account()%>">
-				</td>
-			</tr>
-			<tr>
-				<td>會員密碼</td>
-				<td>
-					<input type="text" name="member_password" class="write" value="<%=(memberVO == null) ? "" : memberVO.getMember_password()%>">
-				</td>
-			</tr>
-			<tr>
-				<td>會員暱稱</td>
-				<td>
-					<input type="text" name="member_nick" class="write" value="<%=(memberVO == null) ? "" : memberVO.getMember_nick()%>">
-				</td>
-			</tr>
-		</table>
-		<br>
-		<input type="hidden" name="action" value="insert">
-		<input type="submit" value="送出新增">
-	</form>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">會員帳號</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" name="member_account" value="<%=(memberVO == null) ? "" : memberVO.getMember_account()%>">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">會員密碼</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" name="member_password" value="<%=(memberVO == null) ? "" : memberVO.getMember_password()%>">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">會員暱稱</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" name="member_nick" value="<%=(memberVO == null) ? "" : memberVO.getMember_nick()%>">
+  </div>
+  <input type="hidden" name="action" value="insert">
+  <button type="submit" class="btn btn-primary">登入</button>
+</form>
+	
+	
 	</div>
 </body>
 </html>

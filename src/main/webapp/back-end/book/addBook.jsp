@@ -11,7 +11,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="reset.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+	integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+	integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
+	crossorigin="anonymous"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -25,58 +44,64 @@
 	});
 </script>
 <style>
-.container {
-	width: 1200px;
-	height: 90px;
-	margin: 0 auto;
-	border: 2px solid black;
-	box-sizing: border-box;
+#header {
+	margin: 20px auto;
 }
 
-p {
-	font-size: 40px;
-	width: 300px;
-	height: auto;
-	float: left;
-	margin: 0;
-	padding: 20px 45px;
-	box-sizing: border-box;
-}
-
-nav {
-	float: right;
-	padding: 24px 60px;
-}
-
-nav a {
-	padding: 0 10px;
-	font-size: 20px;
-}
-.content{
-width: 1200px;
-margin: 20px auto;
-padding: 20px 60px;
-border: 2px solid black;
-font-size: 20px;
-box-sizing: border-box;
+.content {
+	width: 1100px;
+	margin: 90px auto;
 }
 </style>
 </head>
 <body>
 <div id="header">
 		<div class="container">
-			<p>後臺管理</p>
-			<nav>
-				<a href="<%=request.getContextPath()%>/back-end/book/listall.jsp"
-					class="url">商品管理</a> <a
-					href="<%=request.getContextPath()%>/back-end/administrator/listone.jsp"
-					class="url">管理員資料</a> <a
-					href="<%=request.getContextPath()%>/back-end/administrator/listall.jsp"
-					class="url">管理員帳號管理</a>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<a class="navbar-brand"
+					href="<%=request.getContextPath()%>/back-end/administrator/listone.jsp">後臺管理</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavDropdown">
+					<ul class="navbar-nav">
+						<li class="nav-item active"><a class="nav-link"
+							href="<%=request.getContextPath()%>/back-end/member/listall.jsp">會員管理
+								<span class="sr-only">(current)</span>
+						</a></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">商品管理</a>
+							<div class="dropdown-menu"
+								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/back-end/book/addBook.jsp">新增商品</a>
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/back-end/book/listall.jsp">查看商品</a>
+							</div></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">管理員管理</a>
+							<div class="dropdown-menu"
+								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/back-end/administrator/addadministrator.jsp">新增管理員</a>
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/back-end/administrator/listall.jsp">查看管理員</a>
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/back-end/administrator/listone.jsp">管理員資料</a>
+							</div></li>
+					</ul>
+				</div>
 			</nav>
 		</div>
 	</div>
 	<div class="content">
+<form method="post" action="<%=request.getContextPath()%>/book/book.do" name="form1" enctype="multipart/form-data">
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
 		<ul>
@@ -85,45 +110,33 @@ box-sizing: border-box;
 			</c:forEach>
 		</ul>
 	</c:if>
-
-	<form method="post" action="<%=request.getContextPath()%>/book/book.do"
-		name="form1" enctype="multipart/form-data">
-		<table>
-			<tr>
-				<td>商品名稱:</td>
-				<td><input type="TEXT" name="bookName" class="write"
-					value="<%=(bookVO == null) ? "商品名稱" : bookVO.getBookName()%>" /></td>
-			</tr>
-			<tr>
-				<td>活動簡介:</td>
-				<td><textarea class="write" name="bookContent"  rows="14"><%=(bookVO == null) ? "商品介紹" : bookVO.getBookContent()%></textarea></td>
-
-			</tr>
-			<tr>
-				<td>商品數量:</td>
-				<td><input type="TEXT" name="bookQty" class="write"
-					value="<%=(bookVO == null) ? "1" : bookVO.getBookQty()%>" /></td>
-			</tr>
-			<tr>
-				<td>活動圖片:</td>
-				<td><input type="file" name="bookImg" class="write"
-					value="<%=(bookVO == null) ? "" : bookVO.getBookImg()%>" /></td>
-			</tr>
-			<tr>
-				<td>上架時間:</td>
-				<td><input type="date" name="addedTime" class="write"
-					value="<%=(bookVO == null) ? "" : bookVO.getAddedTime()%>" /></td>
-			</tr>
-			<tr>
-				<td>下架時間:</td>
-				<td><input type="date" name="downTime" class="write"
-					value="<%=(bookVO == null) ? "" : bookVO.getDownTime()%>" /></td>
-			</tr>
-			
-		</table>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="送出新增">
-	</form>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">商品名稱:</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" name="bookName" value="<%=(bookVO == null) ? "商品名稱" : bookVO.getBookName()%>">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">商品簡介:</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" name="bookContent" rows="3" ><%=(bookVO == null) ? "商品介紹" : bookVO.getBookContent()%></textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">商品數量:</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="" name="bookQty" value="<%=(bookVO == null) ? "1" : bookVO.getBookQty()%>">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">商品圖片:</label>
+    <input type="file" class="form-control" id="exampleFormControlInput1" placeholder="" name="bookImg" value="<%=(bookVO == null) ? "" : bookVO.getBookImg()%>">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">上架時間:</label>
+    <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="" name="addedTime" value="<%=(bookVO == null) ? "" : bookVO.getAddedTime()%>">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">下架時間:</label>
+    <input type="date" class="form-control" id="exampleFormControlInput1" placeholder="" name="downTime" value="<%=(bookVO == null) ? "" : bookVO.getDownTime()%>">
+  </div>
+  <input type="hidden" name="action" value="insert">
+  <button type="submit" class="btn btn-primary">登入</button>
+</form>
 	</div>
 </body>
 </html>
