@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="com.book.model.*"%>
+<%@ page import="com.information.model.*"%>
 <%
-	BookVO bookVO = (BookVO) request.getAttribute("bookVO");
+	InformationVO informationVO = (InformationVO) request.getAttribute("informationVO");
 %>
 <!DOCTYPE html>
 <html>
@@ -121,60 +121,53 @@
 				</ul>
 			</c:if>
 		<FORM METHOD="post"
-			ACTION="<%=request.getContextPath()%>/book/book.do" name="form1"
+			ACTION="<%=request.getContextPath()%>/information/information.do" name="form1"
 			enctype="multipart/form-data">
 			<div class="form-group row">
-				<label for="staticEmail" class="col-sm-2 col-form-label">商品編號:</label>
+				<label for="staticEmail" class="col-sm-2 col-form-label">活動編號:</label>
 				<div class="col-sm-10">
 					<input type="text" readonly id="staticEmail"
-						name="bookId" value="<%=bookVO.getBookId()%>">
+						name="information_id" value="<%=informationVO.getInformation_id()%>">
 				</div>
 			</div>
 			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">商品名稱:</label>
+				<label for="inputPassword" class="col-sm-2 col-form-label">活動名稱:</label>
 				<div class="col-sm-10">
-					<input name="bookName" type="text" id="inputPassword"
-						placeholder="" value="<%=bookVO.getBookName()%>">
+					<input name="information_name" type="text" id="inputPassword"
+						placeholder="" value="<%=informationVO.getInformation_name()%>">
 				</div>
 			</div>
 			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">商品介紹:</label>
+				<label for="inputPassword" class="col-sm-2 col-form-label">活動介紹:</label>
 				<div class="col-sm-10">
-					<textarea name="bookContent" id="inputPassword" placeholder=""
-						rows="3"><%=bookVO.getBookContent()%></textarea>
+					<textarea name="information_content" id="inputPassword" placeholder=""
+						rows="3"><%=informationVO.getInformation_content()%></textarea>
 				</div>
 			</div>
 			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">商品數量:</label>
+				<label for="inputPassword" class="col-sm-2 col-form-label">活動圖片:</label>
 				<div class="col-sm-10">
-					<input name="bookQty" type="text" id="inputPassword" placeholder=""
-						value="<%=bookVO.getBookQty()%>">
+					<input name="information_img" type="file" id="inputPassword" placeholder=""
+						value="<%=informationVO.getInformation_img()%>">
 				</div>
 			</div>
 			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">商品圖片:</label>
+				<label for="inputPassword" class="col-sm-2 col-form-label">開始時間:</label>
 				<div class="col-sm-10">
-					<input name="bookImg" type="file" id="inputPassword" placeholder=""
-						value="<%=bookVO.getBookImg()%>">
+					<input name="added_time" type="date" id="inputPassword"
+						placeholder="" value="<%=informationVO.getAdded_time()%>">
 				</div>
 			</div>
 			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">上架時間:</label>
+				<label for="inputPassword" class="col-sm-2 col-form-label">結束時間:</label>
 				<div class="col-sm-10">
-					<input name="addedTime" type="date" id="inputPassword"
-						placeholder="" value="<%=bookVO.getAddedTime()%>">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">下架時間:</label>
-				<div class="col-sm-10">
-					<input name="downTime" type="date" id="inputPassword"
-						placeholder="" value="<%=bookVO.getDownTime()%>">
+					<input name="down_time" type="date" id="inputPassword"
+						placeholder="" value="<%=informationVO.getDown_time()%>">
 				</div>
 			</div>
 
 			<input type="hidden" name="action" value="update"> <input
-				type="hidden" name="bookId" value="<%=bookVO.getBookId()%>">
+				type="hidden" name="information_id" value="<%=informationVO.getInformation_id()%>">
 			<button type="submit" class="btn btn-primary">修改</button>
 		</form>
 	</div>

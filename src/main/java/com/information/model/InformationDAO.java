@@ -195,7 +195,7 @@ public class InformationDAO implements InformationDAO_interface{
 		
 		try {
 			con = DriverManager.getConnection(url, user, password);
-			pstmt = con.prepareStatement(getone);
+			pstmt = con.prepareStatement(getall);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {

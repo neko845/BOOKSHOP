@@ -56,6 +56,10 @@ margin: 20px auto;
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<ul class="navbar-nav">
+					<li class="nav-item active"><a class="nav-link"
+							href="<%=request.getContextPath()%>/front-end/information/listall.jsp">活動資訊
+								<span class="sr-only">(current)</span>
+						</a></li>
 						<li class="nav-item active"><a class="nav-link"
 							href="<%=request.getContextPath()%>/front-end/book/buycar.jsp">購物車
 								<span class="sr-only">(current)</span>

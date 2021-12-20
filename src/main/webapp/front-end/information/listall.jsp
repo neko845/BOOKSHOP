@@ -2,9 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="com.member.model.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.information.model.*"%>
 <%
-	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+	InformationService informationSvc = new InformationService();
+	List<InformationVO> list = informationSvc.getAll();
+	pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
 <html>
@@ -33,16 +36,10 @@
 	crossorigin="anonymous"></script>
 <script>
 	$(document).ready(function() {
-		$(".write ").focus(function() {
-			$(this).css("background-color", "yellow");
-		});
-		$(".write ").blur(function() {
-			$(this).css("background-color", "#ffffff");
-		});
-		$(".url ").mouseenter(function() {
+		$(".url").mouseenter(function() {
 			$(this).css("color", "red");
 		});
-		$(".url ").mouseleave(function() {
+		$(".url").mouseleave(function() {
 			$(this).css("color", "black");
 		});
 	});
@@ -52,9 +49,14 @@
 	margin: 20px auto;
 }
 
-#content {
-	width: 600px;
+.content {
+	width: 1100px;
 	margin: 90px auto;
+}
+
+img {
+	width: 250px;
+	height: 250px
 }
 </style>
 </head>
@@ -95,7 +97,7 @@
 			</nav>
 		</div>
 	</div>
-	<div id="content">
+	<div class="content">
 		<c:if test="${not empty errorMsgs}">
 			<font style="color: red">請修正以下錯誤:</font>
 			<ul>
@@ -104,35 +106,32 @@
 				</c:forEach>
 			</ul>
 		</c:if>
-		<form method="post"
-			action="<%=request.getContextPath()%>/member/member.do" name="form1"
-			enctype="multipart/form-data">
 
-			<div class="form-group row">
-				<label for="staticEmail" class="col-sm-2 col-form-label">會員帳號:</label>
-				<div class="col-sm-10">
-					<input type="text" readonly id="staticEmail"
-						value="<%=memberVO.getMember_account()%>">
+
+		<div class="row row-cols-1 row-cols-md-3">
+			<c:forEach var="informationVO" items="${list}" varStatus="list">
+				<div class="col mb-4">
+					<div class="card">
+						<img
+							src="<%=request.getContextPath()%>/information/getpic.do?picno=${informationVO.information_id}"
+							alt="...">
+						<div class="card-body">
+							<h5 class="card-title">${informationVO.information_name}</h5>
+							<h5 >開始時間 : ${informationVO.added_time}</h5>
+							<h5 >結束時間 : ${informationVO.down_time}</h5>
+						</div>
+						<div class="card-footer">
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/information/information.do" style="margin-bottom: 0px;">
+								<button type="submit" class="btn btn-primary">查看活動</button> 
+								<input type="hidden" name="information_id" value="${informationVO.information_id}"> 
+								<input type="hidden" name="action" value="getone">
+							</FORM>
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">會員密碼:</label>
-				<div class="col-sm-10">
-					<input name="member_password" type="text" id="inputPassword"
-						placeholder="" value="<%=memberVO.getMember_password()%>">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">會員暱稱:</label>
-				<div class="col-sm-10">
-					<input name="member_nick" type="text" id="inputPassword"
-						placeholder="" value="<%=memberVO.getMember_nick()%>">
-				</div>
-			</div>
-			<input type="hidden" name="action" value="update"> <input
-				type="hidden" name="member_id" value="<%=memberVO.getMember_id()%>">
-			<button type="submit" class="btn btn-primary">修改</button>
-		</form>
+			</c:forEach>
+		</div>
+
 	</div>
 </body>
 </html>

@@ -2,9 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="com.book.model.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.information.model.*"%>
 <%
-	BookVO bookVO = (BookVO) request.getAttribute("bookVO");
+	InformationService informationSvc = new InformationService();
+	List<InformationVO> list = informationSvc.getAll();
+	pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
 <html>
@@ -49,10 +52,16 @@
 }
 
 .content {
-	width: 600px;
+	width: 1200px;
 	margin: 90px auto;
 }
+
+img {
+	width: 100px;
+	height: 100px;
+}
 </style>
+
 </head>
 <body>
 	<div id="header">
@@ -112,71 +121,56 @@
 		</div>
 	</div>
 	<div class="content">
-	<c:if test="${not empty errorMsgs}">
-				<font style="color: red">請修正以下錯誤:</font>
-				<ul>
-					<c:forEach var="message" items="${errorMsgs}">
-						<li style="color: red">${message}</li>
-					</c:forEach>
-				</ul>
-			</c:if>
-		<FORM METHOD="post"
-			ACTION="<%=request.getContextPath()%>/book/book.do" name="form1"
-			enctype="multipart/form-data">
-			<div class="form-group row">
-				<label for="staticEmail" class="col-sm-2 col-form-label">商品編號:</label>
-				<div class="col-sm-10">
-					<input type="text" readonly id="staticEmail"
-						name="bookId" value="<%=bookVO.getBookId()%>">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">商品名稱:</label>
-				<div class="col-sm-10">
-					<input name="bookName" type="text" id="inputPassword"
-						placeholder="" value="<%=bookVO.getBookName()%>">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">商品介紹:</label>
-				<div class="col-sm-10">
-					<textarea name="bookContent" id="inputPassword" placeholder=""
-						rows="3"><%=bookVO.getBookContent()%></textarea>
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">商品數量:</label>
-				<div class="col-sm-10">
-					<input name="bookQty" type="text" id="inputPassword" placeholder=""
-						value="<%=bookVO.getBookQty()%>">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">商品圖片:</label>
-				<div class="col-sm-10">
-					<input name="bookImg" type="file" id="inputPassword" placeholder=""
-						value="<%=bookVO.getBookImg()%>">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">上架時間:</label>
-				<div class="col-sm-10">
-					<input name="addedTime" type="date" id="inputPassword"
-						placeholder="" value="<%=bookVO.getAddedTime()%>">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">下架時間:</label>
-				<div class="col-sm-10">
-					<input name="downTime" type="date" id="inputPassword"
-						placeholder="" value="<%=bookVO.getDownTime()%>">
-				</div>
-			</div>
-
-			<input type="hidden" name="action" value="update"> <input
-				type="hidden" name="bookId" value="<%=bookVO.getBookId()%>">
-			<button type="submit" class="btn btn-primary">修改</button>
-		</form>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color: red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">活動編號</th>
+					<th scope="col">活動名稱</th>
+					<th scope="col">活動介紹</th>
+					<th scope="col">活動圖片</th>
+					<th scope="col">開始時間</th>
+					<th scope="col">結束時間</th>
+					<th scope="col">修改</th>
+					<th scope="col">刪除</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="informationVO" items="${list}" varStatus="list">
+					<tr>
+						<td>${informationVO.information_id}</td>
+						<td>${informationVO.information_name}</td>
+						<td>${informationVO.information_content}</td>
+						<td><img alt=""
+							src="<%=request.getContextPath()%>/information/getpic.do?picno=${informationVO.information_id}"></td>
+						<td>${informationVO.added_time}</td>
+						<td>${informationVO.down_time}</td>
+						<td><FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/information/information.do"
+								style="margin-bottom: 0px;">
+								<input type="submit" value="修改"> <input type="hidden"
+									name="information_id" value="${informationVO.information_id}"> <input
+									type="hidden" name="action" value="getOne_For_Update">
+							</FORM></td>
+						<td><FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/information/information.do"
+								style="margin-bottom: 0px;">
+								<input type="submit" value="刪除"> <input type="hidden"
+									name="information_id" value="${informationVO.information_id}"> <input
+									type="hidden" name="action" value="delete">
+							</FORM></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
+
 </body>
 </html>

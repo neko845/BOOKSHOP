@@ -69,6 +69,23 @@
 		<servlet-name>GetPic</servlet-name>
 		<url-pattern>/book/getpic.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InformationServlet</servlet-name>
+		<servlet-class>com.information.controller.InformationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InformationServlet</servlet-name>
+		<url-pattern>/information/information.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>GetPic3</servlet-name>
+		<servlet-class>com.information.controller.GetPic</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetPic3</servlet-name>
+		<url-pattern>/information/getpic.do</url-pattern>
+	</servlet-mapping>
 
 	<filter>
 		<filter-name>MemberFilter</filter-name>

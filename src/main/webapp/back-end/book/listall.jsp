@@ -91,6 +91,17 @@ img {
 								<a class="dropdown-item"
 									href="<%=request.getContextPath()%>/back-end/book/listall.jsp">查看商品</a>
 							</div></li>
+							<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#"
+							id="navbarDropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">活動管理</a>
+							<div class="dropdown-menu"
+								aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/back-end/information/addInformation.jsp">新增活動</a>
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/back-end/information/listall.jsp">查看活動</a>
+							</div></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarDropdownMenuLink" data-toggle="dropdown"
