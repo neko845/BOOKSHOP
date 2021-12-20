@@ -102,7 +102,7 @@ public class MemberDAO implements MemberDAO_interface{
 		PreparedStatement pstmt = null;
 		try {
 			con = DriverManager.getConnection(url,user,password);
-			pstmt = con.prepareStatement(update);
+			pstmt = con.prepareStatement(delete);
 			
 			pstmt.setInt(1, member_id);
 			
