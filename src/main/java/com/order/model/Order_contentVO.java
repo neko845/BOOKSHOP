@@ -1,4 +1,4 @@
-package com.order_content.model;
+package com.order.model;
 
 public class Order_contentVO {
 	private Integer order_id;

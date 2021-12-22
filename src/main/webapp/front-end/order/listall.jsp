@@ -3,10 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.information.model.*"%>
-<%
-	InformationService informationSvc = new InformationService();
-	List<InformationVO> list = informationSvc.getAll();
+<%@ page import="com.member.model.*"%>
+<%@ page import="com.order.model.*"%>
+<%	
+	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");	
+	Order_titleService order_titleSvc = new Order_titleService();
+	List<Order_titleVO> list = order_titleSvc.getallone(memberVO.getMember_account());
 	pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
@@ -73,7 +75,7 @@ img {
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<ul class="navbar-nav">
-					<li class="nav-item active"><a class="nav-link"
+						<li class="nav-item active"><a class="nav-link"
 							href="<%=request.getContextPath()%>/front-end/information/listall.jsp">活動資訊
 								<span class="sr-only">(current)</span>
 						</a></li>
@@ -110,29 +112,33 @@ img {
 		</c:if>
 
 
-		<div class="row row-cols-1 row-cols-md-3">
-			<c:forEach var="informationVO" items="${list}" varStatus="list">
-				<div class="col mb-4">
-					<div class="card">
-						<img
-							src="<%=request.getContextPath()%>/information/getpic.do?picno=${informationVO.information_id}"
-							alt="...">
-						<div class="card-body">
-							<h5 class="card-title">${informationVO.information_name}</h5>
-							<h5 >開始時間 : ${informationVO.added_time}</h5>
-							<h5 >結束時間 : ${informationVO.down_time}</h5>
-						</div>
-						<div class="card-footer">
-							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/information/information.do" style="margin-bottom: 0px;">
-								<button type="submit" class="btn btn-primary">查看活動</button> 
-								<input type="hidden" name="information_id" value="${informationVO.information_id}"> 
-								<input type="hidden" name="action" value="getone">
-							</FORM>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">訂單編號</th>
+					<th scope="col">會員帳號</th>
+					<th scope="col">成立日期</th>
+					<th scope="col">詳細資料</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="order_titleVO" items="${list}" varStatus="list">
+					<tr>
+						<td>${order_titleVO.order_id}</td>
+						<td>${order_titleVO.member_account}</td>
+						<td>${order_titleVO.order_time}</td>
+						<td><FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/order/order.do"
+								style="margin-bottom: 0px;">
+								<input type="submit" value="訂單詳細"> <input type="hidden"
+									name="order_id" value="${order_titleVO.order_id}"> <input
+									type="hidden" name="action" value="getallone">
+							</FORM></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
 
 	</div>
 </body>

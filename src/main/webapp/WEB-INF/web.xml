@@ -86,6 +86,16 @@
 		<servlet-name>GetPic3</servlet-name>
 		<url-pattern>/information/getpic.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>OrderServlet</servlet-name>
+		<servlet-class>com.order.controller.OrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrderServlet</servlet-name>
+		<url-pattern>/order/order.do</url-pattern>
+	</servlet-mapping>
+	
 
 	<filter>
 		<filter-name>MemberFilter</filter-name>

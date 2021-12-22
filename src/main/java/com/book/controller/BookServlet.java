@@ -19,6 +19,10 @@ import org.apache.taglibs.standard.tag.rt.fmt.RequestEncodingTag;
 
 import com.book.model.BookService;
 import com.book.model.BookVO;
+import com.member.model.MemberVO;
+import com.order.model.Order_contentService;
+import com.order.model.Order_titleService;
+import com.order.model.Order_titleVO;
 
 @MultipartConfig
 public class BookServlet extends HttpServlet{
@@ -331,6 +335,45 @@ public class BookServlet extends HttpServlet{
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("checkout".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			HttpSession session = req.getSession();
+			MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+			List<BookVO> list = (List)session.getAttribute("buycar");
+			try {
+
+				long miliseconds = System.currentTimeMillis();
+				java.sql.Date order_time = new java.sql.Date(miliseconds);
+				
+				
+				Order_titleService order_titleSvc = new Order_titleService();
+
+				order_titleSvc.insert(memberVO.getMember_account(), order_time);
+				
+				Order_titleVO order_titlevo = order_titleSvc.getdate(order_time);
+				
+				Order_contentService Order_contentSvc = new Order_contentService();
+				
+				for(BookVO vo : list) {
+					Order_contentSvc.add(order_titlevo.getOrder_id(), vo.getBookId());
+				}
+				
+				session.removeAttribute("buycar");
+				
+				String url = "/front-end/order/listall.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+
+			} catch (Exception e) {
+				errorMsgs.add("無法取的資料" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/book/checkout.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 
 	}
 }

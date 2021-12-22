@@ -90,6 +90,8 @@ height:100px
 									href="<%=request.getContextPath()%>/front-end/member/addmember.jsp">新增會員</a>
 								<a class="dropdown-item"
 									href="<%=request.getContextPath()%>/front-end/member/listOne.jsp">我的會員</a>
+									<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/front-end/order/listall.jsp">我的訂單</a>
 							</div></li>
 					</ul>
 				</div>

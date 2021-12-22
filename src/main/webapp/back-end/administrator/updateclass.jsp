@@ -55,6 +55,10 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<ul class="navbar-nav">
+					<li class="nav-item active"><a class="nav-link"
+							href="<%=request.getContextPath()%>/back-end/order/listall.jsp">訂單管理
+								<span class="sr-only">(current)</span>
+						</a></li>
 						<li class="nav-item active"><a class="nav-link"
 							href="<%=request.getContextPath()%>/back-end/member/listall.jsp">會員管理
 								<span class="sr-only">(current)</span>

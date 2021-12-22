@@ -1,4 +1,4 @@
-package com.order_title.model;
+package com.order.model;
 
 import java.sql.Date;
 

@@ -2,10 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="com.administrator.model.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.order.model.*"%>
 <%
-	AdministratorVO administratorVO = (AdministratorVO) session.getAttribute("administratorVO");
+	Order_titleService order_titleSvc = new Order_titleService();
+	List<Order_titleVO> list = order_titleSvc.getall();
+	pageContext.setAttribute("list", list);
 %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
@@ -27,19 +34,37 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
 	integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2"
 	crossorigin="anonymous"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$(".url").mouseenter(function() {
+			$(this).css("color", "red");
+		});
+		$(".url").mouseleave(function() {
+			$(this).css("color", "black");
+		});
+	});
+</script>
 <style>
 #header {
 	margin: 20px auto;
 }
 
 .content {
-	width: 900px;
+	width: 1200px;
 	margin: 90px auto;
 }
+
+img {
+	width: 100px;
+	height: 100px;
+}
 </style>
+
 </head>
 <body>
-<div id="header">
+	<div id="header">
 		<div class="container">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<a class="navbar-brand"
@@ -97,63 +122,53 @@
 					</ul>
 				</div>
 			</nav>
+		</div>
 	</div>
-	</div>
+	
 	<div class="content">
-
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-	
-	<FORM METHOD="post"
-		ACTION="<%=request.getContextPath()%>/administrator/administrator.do"
-		name="form1" enctype="multipart/form-data">
-
-			<div class="form-group row">
-				<label for="staticEmail" class="col-sm-2 col-form-label">管理員帳號:</label>
-				<div class="col-sm-10">
-					<input type="text" readonly id="staticEmail"
-						value="<%=administratorVO.getAdministrator_account()%>">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="inputPassword" class="col-sm-2 col-form-label">管理員密碼:</label>
-				<div class="col-sm-10">
-					<input name="administrator_password" type="text" id="inputPassword"
-						placeholder="" value="<%=administratorVO.getAdministrator_password()%>">
-				</div>
-			</div>
-			<input type="hidden" name="action" value="update"> 
-			<input type="hidden" name="administrator_id" value="<%=administratorVO.getAdministrator_id()%>">
-			<button type="submit" class="btn btn-primary">修改</button>
-		</form>
-	
-	
-<!-- 	<FORM METHOD="post" -->
-<%-- 		ACTION="<%=request.getContextPath()%>/administrator/administrator.do" --%>
-<!-- 		name="form1" enctype="multipart/form-data"> -->
-<!-- 		<table> -->
-<!-- 			<tr> -->
-<!-- 				<td>管理員帳號:</td> -->
-<%-- 				<td><%=administratorVO.getAdministrator_account()%></td> --%>
-<!-- 			</tr> -->
-<!-- 			<tr> -->
-<!-- 				<td>管理員密碼:</td> -->
-<!-- 				<td><input type="TEXT" name="administrator_password" size="45" -->
-<%-- 					value="<%=administratorVO.getAdministrator_password()%>" /></td> --%>
-<!-- 			</tr> -->
-
-<!-- 		</table> -->
-<!-- 		<br> <input type="hidden" name="action" value="update"> <input -->
-<!-- 			type="hidden" name="administrator_id" -->
-<%-- 			value="<%=administratorVO.getAdministrator_id()%>"> <input --%>
-<!-- 			type="submit" value="送出修改"> -->
-<!-- 	</FORM> -->
+		<c:if test="${not empty errorMsgs}">
+			<font style="color: red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">訂單編號</th>
+					<th scope="col">會員帳號</th>
+					<th scope="col">訂單成立日期</th>
+					<th scope="col">訂單詳細</th>
+					<th scope="col">刪除</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="order_titleVO" items="${list}" varStatus="list">
+					<tr>
+						<td>${order_titleVO.order_id}</td>
+						<td>${order_titleVO.member_account}</td>
+						<td>${order_titleVO.order_time}</td>
+						<td><FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/order/order.do"
+								style="margin-bottom: 0px;">
+								<input type="submit" value="訂單詳細"> <input type="hidden"
+									name="order_id" value="${order_titleVO.order_id}"> <input
+									type="hidden" name="action" value="getall">
+							</FORM></td>
+						<td><FORM METHOD="post"
+								ACTION="<%=request.getContextPath()%>/order/order.do"
+								style="margin-bottom: 0px;">
+								<input type="submit" value="刪除"> <input type="hidden"
+									name="order_id" value="${order_titleVO.order_id}"> <input
+									type="hidden" name="action" value="delete">
+							</FORM></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
+	
 </body>
 </html>

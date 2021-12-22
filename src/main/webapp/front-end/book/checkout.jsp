@@ -3,10 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.information.model.*"%>
+<%@ page import="com.book.model.*"%>
 <%
-	InformationService informationSvc = new InformationService();
-	List<InformationVO> list = informationSvc.getAll();
+	List<BookVO> list = (List) session.getAttribute("buycar");
 	pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
@@ -50,13 +49,13 @@
 }
 
 .content {
-	width: 1100px;
+	width: 1200px;
 	margin: 90px auto;
 }
 
 img {
-	width: 250px;
-	height: 250px
+	width: 100px;
+	height: 100px
 }
 </style>
 </head>
@@ -73,7 +72,7 @@ img {
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<ul class="navbar-nav">
-					<li class="nav-item active"><a class="nav-link"
+						<li class="nav-item active"><a class="nav-link"
 							href="<%=request.getContextPath()%>/front-end/information/listall.jsp">活動資訊
 								<span class="sr-only">(current)</span>
 						</a></li>
@@ -91,7 +90,7 @@ img {
 									href="<%=request.getContextPath()%>/front-end/member/addmember.jsp">新增會員</a>
 								<a class="dropdown-item"
 									href="<%=request.getContextPath()%>/front-end/member/listOne.jsp">我的會員</a>
-									<a class="dropdown-item"
+								<a class="dropdown-item"
 									href="<%=request.getContextPath()%>/front-end/order/listall.jsp">我的訂單</a>
 							</div></li>
 					</ul>
@@ -100,40 +99,33 @@ img {
 		</div>
 	</div>
 	<div class="content">
-		<c:if test="${not empty errorMsgs}">
-			<font style="color: red">請修正以下錯誤:</font>
-			<ul>
-				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color: red">${message}</li>
+		<h1>購物車</h1>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">商品圖片</th>
+					<th scope="col">商品名稱</th>
+					<th scope="col">商品介紹</th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="bookVO" items="${list}" varStatus="list">
+					<tr>
+						<td><img alt=""
+							src="<%=request.getContextPath()%>/book/getpic.do?picno=${bookVO.bookId}">
+						</td>
+						<td>${bookVO.bookName}</td>
+						<td>${bookVO.bookContent}</td>
+
+					</tr>
 				</c:forEach>
-			</ul>
-		</c:if>
-
-
-		<div class="row row-cols-1 row-cols-md-3">
-			<c:forEach var="informationVO" items="${list}" varStatus="list">
-				<div class="col mb-4">
-					<div class="card">
-						<img
-							src="<%=request.getContextPath()%>/information/getpic.do?picno=${informationVO.information_id}"
-							alt="...">
-						<div class="card-body">
-							<h5 class="card-title">${informationVO.information_name}</h5>
-							<h5 >開始時間 : ${informationVO.added_time}</h5>
-							<h5 >結束時間 : ${informationVO.down_time}</h5>
-						</div>
-						<div class="card-footer">
-							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/information/information.do" style="margin-bottom: 0px;">
-								<button type="submit" class="btn btn-primary">查看活動</button> 
-								<input type="hidden" name="information_id" value="${informationVO.information_id}"> 
-								<input type="hidden" name="action" value="getone">
-							</FORM>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
-
+			</tbody>
+		</table>
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/book/book.do" style="margin-bottom: 0px;">
+					<button type="submit" class="btn btn-secondary btn-lg">結帳</button>
+					<input type="hidden" name="action" value="checkout">
+		</FORM>
 	</div>
 </body>
 </html>

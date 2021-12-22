@@ -56,6 +56,9 @@ img{
 width: 100px;
 height:100px
 }
+.bt{
+
+}
 </style>
 </head>
 <body>
@@ -89,6 +92,8 @@ height:100px
 									href="<%=request.getContextPath()%>/front-end/member/addmember.jsp">新增會員</a>
 								<a class="dropdown-item"
 									href="<%=request.getContextPath()%>/front-end/member/listOne.jsp">我的會員</a>
+								<a class="dropdown-item"
+									href="<%=request.getContextPath()%>/front-end/order/listall.jsp">我的訂單</a>
 							</div></li>
 					</ul>
 				</div>
@@ -128,6 +133,7 @@ height:100px
 			</c:forEach>
 			</tbody>
 		</table>
+		<a href="<%=request.getContextPath()%>/front-end/book/checkout.jsp" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">確定商品</a>
 	</div>
 </body>
 </html>
