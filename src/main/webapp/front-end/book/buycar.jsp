@@ -141,7 +141,10 @@ height:100px
 			</c:forEach>
 			</tbody>
 		</table>
-		<a href="<%=request.getContextPath()%>/front-end/book/checkout.jsp" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">確定商品</a>
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/book/book.do" style="margin-bottom: 0px;">
+					<button type="submit" class="btn btn-secondary btn-lg">購買</button>
+					<input type="hidden" name="action" value="check">
+		</FORM>
 	</div>
 </body>
 </html>

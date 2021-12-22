@@ -336,6 +336,46 @@ public class BookServlet extends HttpServlet{
 			}
 		}
 		
+		if ("check".equals(action)) {
+
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			HttpSession session = req.getSession();
+			MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+			List<BookVO> list = (List)session.getAttribute("buycar");
+			try {
+				if(memberVO == null) {
+					errorMsgs.add("請登入");
+				}
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/member/index.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				if(list == null) {
+					errorMsgs.add("請加入商品");
+				}
+				
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/book/buycar.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				String url = "/front-end/book/checkout.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
+
+			} catch (Exception e) {
+				errorMsgs.add("無法取的資料" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/book/buycar.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 		if ("checkout".equals(action)) {
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -344,8 +384,17 @@ public class BookServlet extends HttpServlet{
 			MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 			List<BookVO> list = (List)session.getAttribute("buycar");
 			try {
+				if(memberVO == null) {
+					errorMsgs.add("請登入");
+				}
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/member/index.jsp");
+					failureView.forward(req, res);
+					return;
+				}
 				
-				if(list.size() == 0) {
+				if(list == null) {
 					errorMsgs.add("請加入商品");
 				}
 				
