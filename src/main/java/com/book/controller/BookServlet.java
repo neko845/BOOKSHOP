@@ -261,7 +261,7 @@ public class BookServlet extends HttpServlet{
 			HttpSession session = req.getSession();
 			List<BookVO> list = (List)session.getAttribute("buycar");
 			try {
-
+				
 				Integer bookId = Integer.valueOf(req.getParameter("bookId"));
 				System.out.println(bookId);
 
@@ -344,7 +344,19 @@ public class BookServlet extends HttpServlet{
 			MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 			List<BookVO> list = (List)session.getAttribute("buycar");
 			try {
-
+				
+				if(list.size() == 0) {
+					errorMsgs.add("請加入商品");
+				}
+				
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/book/buycar.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				
 				long miliseconds = System.currentTimeMillis();
 				java.sql.Date order_time = new java.sql.Date(miliseconds);
 				
