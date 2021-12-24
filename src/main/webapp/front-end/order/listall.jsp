@@ -63,44 +63,51 @@ img {
 </style>
 </head>
 <body>
-	<div id="header">
-		<div class="container">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<a class="navbar-brand"
-					href="<%=request.getContextPath()%>/front-end/book/listall.jsp">bookshop</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse"
-					data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-					aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNavDropdown">
-					<ul class="navbar-nav">
-						<li class="nav-item active"><a class="nav-link"
-							href="<%=request.getContextPath()%>/front-end/information/listall.jsp">活動資訊
-								<span class="sr-only">(current)</span>
-						</a></li>
-						<li class="nav-item active"><a class="nav-link"
-							href="<%=request.getContextPath()%>/front-end/book/buycar.jsp">購物車
-								<span class="sr-only">(current)</span>
-						</a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#"
-							id="navbarDropdownMenuLink" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false"> 會員 </a>
-							<div class="dropdown-menu"
-								aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item"
-									href="<%=request.getContextPath()%>/front-end/member/addmember.jsp">新增會員</a>
-								<a class="dropdown-item"
-									href="<%=request.getContextPath()%>/front-end/member/listOne.jsp">我的會員</a>
-									<a class="dropdown-item"
-									href="<%=request.getContextPath()%>/front-end/order/listall.jsp">我的訂單</a>
-							</div></li>
-					</ul>
-				</div>
-			</nav>
-		</div>
-	</div>
+<%@ include file="/front-end/header.jsp"%>
+<!-- 	<div id="header"> -->
+<!-- 		<div class="container"> -->
+<!-- 			<nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
+<!-- 				<a class="navbar-brand" -->
+<%-- 					href="<%=request.getContextPath()%>/front-end/book/listall.jsp">bookshop</a> --%>
+<!-- 				<button class="navbar-toggler" type="button" data-toggle="collapse" -->
+<!-- 					data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" -->
+<!-- 					aria-expanded="false" aria-label="Toggle navigation"> -->
+<!-- 					<span class="navbar-toggler-icon"></span> -->
+<!-- 				</button> -->
+<!-- 				<div class="collapse navbar-collapse" id="navbarNavDropdown"> -->
+<!-- 					<ul class="navbar-nav"> -->
+<!-- 						<li class="nav-item active"><a class="nav-link" -->
+<%-- 							href="<%=request.getContextPath()%>/front-end/information/listall.jsp">活動資訊 --%>
+<!-- 								<span class="sr-only">(current)</span> -->
+<!-- 						</a></li> -->
+<!-- 						<li class="nav-item active"><a class="nav-link" -->
+<%-- 							href="<%=request.getContextPath()%>/front-end/book/buycar.jsp">購物車 --%>
+<!-- 								<span class="sr-only">(current)</span> -->
+<!-- 						</a></li> -->
+<!-- 						<li class="nav-item dropdown"><a -->
+<!-- 							class="nav-link dropdown-toggle" href="#" -->
+<!-- 							id="navbarDropdownMenuLink" data-toggle="dropdown" -->
+<!-- 							aria-haspopup="true" aria-expanded="false"> 會員 </a> -->
+<!-- 							<div class="dropdown-menu" -->
+<!-- 								aria-labelledby="navbarDropdownMenuLink"> -->
+<%-- 								<c:if test="${empty memberVO}"> --%>
+<!-- 							<a class="dropdown-item" -->
+<%-- 									href="<%=request.getContextPath()%>/front-end/member/index.jsp">登入</a> --%>
+<!-- 							<a class="dropdown-item" -->
+<%-- 									href="<%=request.getContextPath()%>/front-end/member/addmember.jsp">註冊</a> --%>
+<%-- 							</c:if> --%>
+<%-- 							<c:if test="${not empty memberVO}"> --%>
+<!-- 							<a class="dropdown-item" -->
+<%-- 									href="<%=request.getContextPath()%>/front-end/member/listOne.jsp">我的會員</a> --%>
+<!-- 									<a class="dropdown-item" -->
+<%-- 									href="<%=request.getContextPath()%>/front-end/order/listall.jsp">我的訂單</a> --%>
+<%-- 							</c:if> --%>
+<!-- 							</div></li> -->
+<!-- 					</ul> -->
+<!-- 				</div> -->
+<!-- 			</nav> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	<div class="content">
 		<c:if test="${not empty errorMsgs}">
 			<font style="color: red">請修正以下錯誤:</font>

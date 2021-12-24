@@ -55,66 +55,7 @@
 </style>
 </head>
 <body>
-	<div id="header">
-		<div class="container">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<a class="navbar-brand"
-					href="<%=request.getContextPath()%>/back-end/administrator/listone.jsp">後臺管理</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse"
-					data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-					aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNavDropdown">
-					<ul class="navbar-nav">
-					<li class="nav-item active"><a class="nav-link"
-							href="<%=request.getContextPath()%>/back-end/order/listall.jsp">訂單管理
-								<span class="sr-only">(current)</span>
-						</a></li>
-						<li class="nav-item active"><a class="nav-link"
-							href="<%=request.getContextPath()%>/back-end/member/listall.jsp">會員管理
-								<span class="sr-only">(current)</span>
-						</a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#"
-							id="navbarDropdownMenuLink" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">商品管理</a>
-							<div class="dropdown-menu"
-								aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item"
-									href="<%=request.getContextPath()%>/back-end/book/addBook.jsp">新增商品</a>
-								<a class="dropdown-item"
-									href="<%=request.getContextPath()%>/back-end/book/listall.jsp">查看商品</a>
-							</div></li>
-							<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#"
-							id="navbarDropdownMenuLink" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">活動管理</a>
-							<div class="dropdown-menu"
-								aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item"
-									href="<%=request.getContextPath()%>/back-end/information/addInformation.jsp">新增活動</a>
-								<a class="dropdown-item"
-									href="<%=request.getContextPath()%>/back-end/information/listall.jsp">查看活動</a>
-							</div></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#"
-							id="navbarDropdownMenuLink" data-toggle="dropdown"
-							aria-haspopup="true" aria-expanded="false">管理員管理</a>
-							<div class="dropdown-menu"
-								aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item"
-									href="<%=request.getContextPath()%>/back-end/administrator/addadministrator.jsp">新增管理員</a>
-								<a class="dropdown-item"
-									href="<%=request.getContextPath()%>/back-end/administrator/listall.jsp">查看管理員</a>
-								<a class="dropdown-item"
-									href="<%=request.getContextPath()%>/back-end/administrator/listone.jsp">管理員資料</a>
-							</div></li>
-					</ul>
-				</div>
-			</nav>
-		</div>
-	</div>
+	<%@ include file="/back-end/header.jsp"%>
 	<div class="content">
 	<c:if test="${not empty errorMsgs}">
 				<font style="color: red">請修正以下錯誤:</font>
